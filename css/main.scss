@@ -1,0 +1,379 @@
+// reset
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+// fonts
+
+$font-primary: 'Roboto Condensed', Helvetica, sans-serif;
+$font-secondary: Helvetica, sans-serif;
+$font-weight-bold: 700;
+$font-height: 1.5;
+
+
+// colors
+
+$very-light-grey: #f3f3f3;
+$light-grey: #9b9b9b;
+$dark-grey: #4a4a4a;
+$black: #000000;
+$green: #00FF29;
+$blue: #0084ff;
+$red: #ff0000;
+
+$color: $black;
+$link-color: $black;
+
+
+// universal
+
+$radius: 0;
+$padding: 7px 7px 7px 15px;
+$button-padding: 10px 12px 11px 10px;
+$gutter: 40px;
+
+::selection {
+  background: $green;
+}
+
+body {
+  cursor: url(../img/cursor.svg), auto;
+  width: 100%;
+  margin: $gutter * 2 0;
+  left: 0;
+  top: 0;
+  font-family: $font-primary;
+  color: $color;
+  line-height: $font-height;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
+  &:hover {
+    cursor: url(../img/cursor.svg), auto;
+  }
+}
+
+
+// typography
+
+h1 {
+  font-family: $font-secondary;
+  color: $black;
+  font-size: 2.5rem;
+  margin-bottom: $gutter;
+  letter-spacing: 3px;
+}
+
+h2 {
+  color: $black;
+  font-size: 1.5rem;
+  font-weight: $font-weight-bold;
+}
+
+h3 {
+  color: $black;
+  font-size: 1.375rem;
+  font-weight: $font-weight-bold;
+}
+
+p.soldout {
+  color: $red;
+}
+
+
+// grid
+
+header, main, footer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: $gutter * 1.5 0;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.column {
+  margin-right: $gutter * 2;
+  &:last-of-type {
+    margin-right: 0;
+  }
+  & a img {
+    max-width: (1200px - (4 * $gutter)) / 3;
+  }
+  & a img:hover {
+    opacity: 0.8;
+  }
+}
+
+
+// align
+
+%flex-start {
+  align-items: flex-start;
+}
+
+%flex-center {
+  align-items: center;
+}
+
+%flex-end {
+  align-items: flex-end;
+}
+
+header .row, .row .clients, .contact-bar {
+  @extend %flex-center;
+}
+
+.intro {
+  @extend %flex-end;
+}
+
+
+// main
+
+$duration: 80s;
+
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.ticker-wrap {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  height: 2.5rem;
+  background-color: $green; 
+  padding-left: 100%;  // offset items to begin 
+  opacity: 0.95;
+  
+}
+
+.ticker {
+    
+  display: inline-block;
+  height: 2.5rem;
+  line-height: 2.5rem;  
+  white-space: nowrap; // display items in a line
+  padding-right: 100%; // ensure items go before animations repeat (taken from parent due to inline-block)
+  
+  -webkit-animation-iteration-count: infinite; 
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+ -webkit-animation-name: ticker;
+         animation-name: ticker;
+  -webkit-animation-duration: $duration;
+          animation-duration: $duration;
+  
+  &__item {
+    
+    display: inline-block;
+    
+    padding: 0 2rem;
+    font-size: 1rem;
+    color: white;   
+    
+  }
+  
+}
+
+.countdown {
+  text-align: right;
+}
+
+.contact-bar {
+  padding: $padding;
+  border-radius: $radius;
+  border: 2px solid $green;
+  color: $green;
+  -webkit-transform: skew(-10deg); -moz-transform: skew(-10deg); -o-transform: skew(-10deg);
+}
+
+a.button {
+  color: white;
+  border-radius: $radius;
+  letter-spacing: 0.075rem;
+  font-weight: $font-weight-bold;
+  line-height: 1;
+  text-decoration: none;
+  border: none;
+  border: 2px solid $green;
+  &:hover {
+    color: $green;
+    border: 2px solid $green;
+    background-color: white;
+  }
+  padding: $button-padding;
+  background-color: $green;
+}
+
+a.disabled {
+  background-color: $very-light-grey;
+  border: 2px solid $very-light-grey;
+    &:hover {
+    color: white;
+    border: 2px solid $very-light-grey;
+    background-color: $very-light-grey;
+  }
+}
+
+
+// footer
+
+footer a {
+  margin-left: 30px;
+  color: $link-color;
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 2px solid $very-light-grey;
+  transition: all .2s ease-in-out !important;
+  transform: translateZ(0);
+  &:hover {
+    border-bottom: 2px solid $black;
+  }
+}
+
+
+// media
+
+@media screen and (min-width: 1000px) {
+  .column {
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  body {
+    margin: 0;
+  }
+  header, main, footer {
+    max-width: 85%;
+  }
+  .row {
+    margin: 40px 0;
+  }
+  .column {
+    text-align: center;
+    margin: 0 auto $gutter / 2 auto;
+    &:last-of-type {
+      margin: 0 auto;
+    }
+  }
+  .contact-bar {
+    padding: $gutter * 0.75;
+    text-align: center;
+    justify-content: space-around;
+    .message {
+      width: 100%;
+    }
+    a.email {
+      margin-top: $gutter / 2;
+    }
+  }
+}
+
+
+// 404
+
+.console {
+  margin: 0 $gutter;
+  line-height: 2;
+}
+
+.blinking-cursor {
+  color: $dark-grey;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: $dark-grey;
+  }
+}
